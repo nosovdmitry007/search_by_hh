@@ -2,13 +2,20 @@
 import requests
 import pprint
 import json
+import time
 
 url = 'https://api.hh.ru/vacancies'
-data={}
+
+data = {}
+
 data['vacance'] = []
-data['static']=[]
+data['static'] = []
+data['key_skill'] = []
 vac=0
-for i in range(10):
+key=[]
+for i in range(1):
+
+    time.sleep(1)
     params = {
         'text': 'python developer',
         # есть страницы т.к. данных много
@@ -18,8 +25,7 @@ for i in range(10):
     }
 
     result = requests.get(url, params=params).json()
-    for z in range(20):#len(result['items']):
-
+    for z in range(20):
         vac += 1
         data['vacance'].append({
             'name': result['items'][z]['name'],
@@ -27,9 +33,26 @@ for i in range(10):
             'salary': result['items'][z]['salary'],
             'snippet': result['items'][z]['snippet'],
         })
-    #pprint.pprint(result)
-   # print(result['items'][0]['url'])
-   # print(result['items'][0]['alternate_url'])
+        url = result['items'][z]['url']
+        result1 = requests.get(url).json()
+
+        key = key+result1['key_skills']
+
+skills = []
+for k in range(len(key)):
+    skills.append(key[k]['name'])
+
+key_skills = {}
+for item in skills:
+
+    if item in key_skills:
+        key_skills[item] += 1
+    else:
+        key_skills[item] = 1
+
+result3 = sorted(key_skills.items(), key=lambda x: x[1], reverse=True)
+
+data['key_skill'] = result3
 data['static'].append({
     'all_vacancies': result['found'],
     'vacancies found': vac
