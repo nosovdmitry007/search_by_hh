@@ -7,29 +7,32 @@
         <meta name="author" content="" />
         <title>Результаты</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Font Awesome icons (free version)-->
+        <link rel="stylesheet" type="text/css" href="/static/css/styles.css"/>
+
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+<!--        <link href="static/css/styles.css" rel="stylesheet" />-->
+
+
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top">Парсер HH.ru</a>
+                <a class="navbar-brand" href="/">Парсер HH.ru</a>
                 <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="index.html">Главная</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="form.html">Форма поиска</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="results.html">Результат</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Главная</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/form/">Форма поиска</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/results/">Результат</a></li>
                     </ul>
                 </div>
             </div>
@@ -47,27 +50,53 @@
                     <div class="col-lg-auto" align="left">
                         <p class="lead">
                             <h3>
-                            Параметры
+                            Параметры поиска
                             </h3>
-                <br>
+                         <br>
+                        <h4>
                             <ol>
-                                <li>Python</li>
-                                <li>в названии вакансии</li>
+                                <li>{{params.serc}}</li>
+                                {% if params.search_field == "name" %}
+                                <li>В названии вакансии</li>
+                                {% elif params.search_field == "company_name" %}
+                                <li>В названии компании</li>
+                                {% elif params.description == "description" %}
+                                <li>В описание</li>
+                                {% endif %}
                             </ol>
+                        </h4>
                         </p>
                     </div>
 
+ {% if luck == "true" %}
 
-                    <div class="col-lg-4 me-auto">
+                    <div class="col-lg-5 me-auto">
                         <p class="lead">
                             <h3>
-                            Навыки
+                            Нееобходимые навыки
+
+
                             </h3>
                         <!--    ul - список-->
                             <ul>
-                                <li>Python</li>
-                                <li>sql</li>
-                                <li>git</li>
+                                <table class="table-responsive" >
+<!--                                    <thead>-->
+<!--                                        <tr>-->
+<!--                                            <th>Название</th>-->
+<!--                                            <th align="center">Навык</th>-->
+<!--                                        </tr>-->
+<!--                                    <thead>-->
+                                    <tbody>
+
+                                        {% for skil in key_skill %}
+                                            <tr>
+                                            {% if skil.1>1 %}
+                                            <td>{{skil.1}}<td><td>  {{skil.0}}</td>
+                                            {% endif %}
+                                            </tr>
+                                        {% endfor %}
+
+                                </table>
                             </ul>
                         </p>
                     </div>
@@ -83,35 +112,40 @@
                 <!-- Icon Divider-->
                 <br>
                 <table class ="table table-striped" align="center" >
-                <thead>
-                    <tr>
-                        <th>Номер</th>
-                        <th>Название</th>
-                        <th>Описание</th>
-                        <th>Ссылка на страницу на hh.ru</th>
-                    </tr>
-                <thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Python developer</td>
-                        <td>Надо прогать на python</td>
-                        <td> <a href="http://google.com"> http://google.com</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>java developer</td>
-                        <td>Надо прогать на java</td>
-                        <td> <a href="http://google.com"> http://google.com</a></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Web Python developer</td>
-                        <td>Надо прогать на python</td>
-                        <td> <a href="http://google.com"> http://google.com</a></td>
-                    </tr>
-                </tbody>
-        </table>
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Зарплата</th>
+                            <th>Описание</th>
+                            <th>Ссылка на страницу на hh.ru</th>
+                        </tr>
+                    <thead>
+                    <tbody>
+                        {% for vacanc in vacance %}
+
+
+                        <tr>
+                            <td>{{vacanc.name}}</td>
+                            {% if vacanc.salary%}
+                                <td>{% if  vacanc.salary.from %}от {{vacanc.salary.from}} {% endif %}
+                                    {% if  vacanc.salary.to %}до {{vacanc.salary.to}} {% endif %}
+                                    {% if  vacanc.salary.currency == "RUR" %} ₽ {% endif %}</td>
+                            {% else %}
+                                <td>Не указана</td>
+                            {% endif %}
+                            <td>{% if vacanc.snippet.responsibility %}{{vacanc.snippet.responsibility}} {% else %}Нет описания{% endif %}</td>
+                            <td> <a href={{vacanc.url_vacancy}}> {{vacanc.url_vacancy}}</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+  {% else %}
+        <p class="lead">
+            <h4> Некоректный запрос</h4>
+   {% endif%}
 
    </body>
 </html>
