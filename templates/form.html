@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Поиск вакансий (фильтры)</title>
+        <!-- Favicon-->
+        <link rel="stylesheet" type="text/css" href="/static/css/styles.css"/>
+<!---->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+<!--        <link href="static/css/styles.css" rel="stylesheet" />-->
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="/">Парсер HH.ru</a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/">Главная</a></li>
+                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/form/">Форма поиска</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="/results/">Результат</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Contact Section-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <!-- Contact Section Heading-->
+                <br>
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Параметры поиска</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Contact Section Form-->
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 col-xl-7">
+
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" method="post">
+                            <!-- имя запроса-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" name="query_string" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />
+                                <label for="name">Поисковый запрос</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">Необходимо ввести запрос</div>
+                            </div>
+
+<!--search_field=name&search_field=company_name&search_field=description-->
+                            <p>
+                                <select name="where" class="form-control">
+                                    <option value="description">В описание</option>
+                                    <option value="company_name">В названии компании</option>
+                                    <option selected value="name">В названии вакансии</option>
+                                </select>
+                            </p>
+                          <button class="btn btn-primary" type="submit" >Искать вакансии</button>
+
+
+                    </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>
