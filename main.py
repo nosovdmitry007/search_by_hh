@@ -15,6 +15,7 @@ def hh_serch(tex, param):
     data['vacance'] = []
     data['static'] = []
     data['key_skill'] = []
+    data['skills'] = []
     vac = 0
     key = []
 
@@ -28,7 +29,7 @@ def hh_serch(tex, param):
         }
 
         result = requests.get(url, params=params).json()
-        # pprint.pprint(result)
+        pprint.pprint(result)
 
         for z in range(20):
             try:
@@ -38,6 +39,7 @@ def hh_serch(tex, param):
                     'url_vacancy': result['items'][z]['alternate_url'],
                     'salary': result['items'][z]['salary'],
                     'snippet': result['items'][z]['snippet'],
+                    'skills': requests.get(result['items'][z]['url']).json()['key_skills']
                 })
                 url = result['items'][z]['url']
                 result1 = requests.get(url).json()
@@ -61,6 +63,7 @@ def hh_serch(tex, param):
 
         result3 = sorted(key_skills.items(), key=lambda x: x[1], reverse=True)
 
+        # data['skills'].append(key)
         data['key_skill'] = result3
         data['static'].append({
             'all_vacancies': result['found'],
