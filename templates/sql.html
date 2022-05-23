@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Поиск вакансий</title>
+        <title>Результаты</title>
         <!-- Favicon-->
         <link rel="stylesheet" type="text/css" href="/static/css/styles.css"/>
 
@@ -15,6 +15,9 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
 <!--        <link href="static/css/styles.css" rel="stylesheet" />-->
+
+
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -39,18 +42,76 @@
         <!-- Masthead-->
         <header class="masthead bg-primary text-white text-center">
             <div class="container d-flex align-items-center flex-column">
-                <h1 class="masthead-heading text-uppercase mb-0">Гланая страница сайта</h1>
+
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">Результаты запроса</h1>
+                <!-- Icon Divider-->
 <br>
                 <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">поиск вакансии на сайте HH.ru
-                    <BR>
-                Парсер умеет получать вакансиии с hh
-                    <br>
-                     И что то с ними делать
-                    <br>
-                     Можно задать различные параметры поиска
-                </p>
+                <div class="row">
+                    <div class="col-lg-auto" align="left">
+                        <p class="lead">
+                            <h3>
+                            Параметры поиска
+                            </h3>
+                         <br>
+                        <h4>
+                            <ol>
+                                <li>{{context[0][7]}}</li>
+                                <li>{{context[0][8]}}</li>
+                            </ol>
+                        </h4>
+                        </p>
+                    </div>
+
+ {% if context %}
+
+
+                </div>
+
             </div>
         </header>
-       </body>
+
+        <section class="page-section portfolio" id="portfolio">
+            <div class="container">
+                <!-- Portfolio Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">РЕЗУЛЬТАТ</h2>
+                <!-- Icon Divider-->
+                <br>
+                <table class ="table table-striped" align="center" >
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Зарплата</th>
+                            <th>Описание</th>
+                            <th>Навыки</th>
+                            <th>Как часто встречается</th>
+                            <th>Ссылка на страницу на hh.ru</th>
+                        </tr>
+                    <thead>
+                    <tbody>
+                        {% for vacanc in context %}
+
+
+                        <tr>
+                            <td>{{vacanc[1]}}</td>
+                                <td>{{vacanc[2]}}
+
+                            <td>{{vacanc[3]}}</td>
+                           <td>{{vacanc[5]}}</td>
+                            <td>{{vacanc[6]}}</td>
+                            <td> <a href={{vacanc[4]}}> {{vacanc[4]}}</a></td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+  {% else %}
+        <p class="lead">
+            <h4> Некоректный запрос</h4>
+   {% endif%}
+
+   </body>
 </html>
