@@ -1,11 +1,15 @@
 from flask import Flask, render_template, request
 from main import hh_serch
-# from flask_json import FlaskJSON, JsonError, json_response, as_json
 import json
-import time
+
 import sqlite3
+from orm import *
+from sqlalchemy import create_engine,update
+from sqlalchemy.orm import sessionmaker
+
 app = Flask(__name__)
-# FlaskJSON(app)
+
+
 @app.route("/")
 def index():
     return render_template('index.html')
@@ -43,12 +47,23 @@ def sql():
     cursor.execute(zapros)
     context = cursor.fetchall()
 
-
-    # with open('hh_search.json', 'r', encoding='utf-8') as f:  # открыли файл с данными
-    #     context = json.load(f)
-
-
     return render_template('sql.html', context=context)
+
+
+@app.route("/SQL_orm/")
+def sql_orm():
+    engine = create_engine('sqlite:///HH_search_orm.sqlite', echo=False)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+
+
+    context =  session.query(Vacancy.id, Vacancy.name, Vacancy.salary, Vacancy.about, Vacancy.link,
+                           Skills_table.skil, Skills_table.how_many_skil,
+                           Params.name_search, Params.where_search).filter((Vacancyskil.c.vacancy_id == Vacancy.id) &( Vacancyskil.c.skil_id == Skills_table.id)).all()
+
+
+    return render_template('SQL_orm.html', context=context)
 
 if __name__ == "__main__":
     app.run(debug=True)
